@@ -65,13 +65,13 @@ def create_booking(booking: BookingCreate):
     return new_booking
 
 
-# 3: Просмотр бронирований для админа
+# 3: Просмотр бронирований для админа.
 @app.get("/admin/bookings")
 def get_admin_bookings():
     return bookings_db
 
 
-# Фронтенд
+# Фронтенд.
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     return """
