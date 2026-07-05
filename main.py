@@ -5,7 +5,7 @@ from typing import List
 
 app = FastAPI(title="Гончарная мастерская «Глиняный Уют»")
 
-# Имитация базы данных (In-Memory)
+# Имитация базы данных
 workshops_db = [
     {"id": 1, "title": "Ваза на гончарном круге", "price": 2500, "slots": 5},
     {"id": 2, "title": "Лепка чайной кружки", "price": 1800, "slots": 2},
@@ -16,7 +16,7 @@ bookings_db = []
 booking_id_counter = 1
 
 
-# Модели данных Pydantic
+# Модели данных
 class BookingCreate(BaseModel):
     workshop_id: int
     client_name: str
@@ -30,13 +30,13 @@ class BookingResponse(BaseModel):
     client_phone: str
 
 
-# --- 1: Получение списка мастер-классов ---
+# 1: Получение списка мастер-классов
 @app.get("/workshops")
 def get_workshops():
     return workshops_db
 
 
-# --- 2: Создание бронирования ---
+# 2: Создание бронирования
 @app.post("/bookings", response_model=BookingResponse)
 def create_booking(booking: BookingCreate):
     global booking_id_counter
@@ -65,13 +65,13 @@ def create_booking(booking: BookingCreate):
     return new_booking
 
 
-# --- 3: Просмотр бронирований для админа ---
+# 3: Просмотр бронирований для админа
 @app.get("/admin/bookings")
 def get_admin_bookings():
     return bookings_db
 
 
-# --- Фронтенд ---
+# Фронтенд
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     return """
